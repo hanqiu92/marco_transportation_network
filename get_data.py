@@ -6,8 +6,6 @@ import pickle
 
 city_dict = json.load(open('city_back.txt'))
 city_num = len(city_dict)
-total_in_record = {}
-total_out_record = {}
 
 def get(city,date,city_dict):
     url='http://lbs.gtimg.com/maplbs/qianxi/'+str(date)+'/'+str(city)+'.js'
@@ -56,6 +54,8 @@ def get_by_date(date,city_dict):
     return in_record,out_record
 
 def get_by_month(month,city_dict):
+    total_in_record = {}
+    total_out_record = {}
     if month in [1,3,5,7,8,10,12]:
         days = 31
     elif month in [4,6,9,11]:
@@ -73,4 +73,6 @@ def get_by_month(month,city_dict):
     pickle.dump( total_in_record, open( "in_"+str(month)+".p", "wb" ) )
     pickle.dump( total_out_record, open( "out_"+str(month)+".p", "wb" ) )
 
-get_by_month(2,city_dict)
+for m in xrange(8):
+    month = m + 3
+    get_by_month(month,city_dict)
