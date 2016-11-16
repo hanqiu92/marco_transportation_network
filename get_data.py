@@ -53,7 +53,7 @@ def get_by_date(date,city_dict):
         n += 1
     return in_record,out_record
 
-def get_by_month(month,city_dict):
+def get_by_month(year,month,city_dict):
     total_in_record = {}
     total_out_record = {}
     if month in [1,3,5,7,8,10,12]:
@@ -64,7 +64,7 @@ def get_by_month(month,city_dict):
         days = 29
     for day in xrange(days):
         t = time.time()
-        date = 20160001 + month * 100 + day
+        date = year * 10000 + month * 100 + day + 1
         out = get_by_date(date,city_dict)
         total_in_record[date] = out[0]
         total_out_record[date] = out[1]
@@ -73,6 +73,7 @@ def get_by_month(month,city_dict):
     pickle.dump( total_in_record, open( "in_"+str(month)+".p", "wb" ) )
     pickle.dump( total_out_record, open( "out_"+str(month)+".p", "wb" ) )
 
-for m in xrange(8):
-    month = m + 3
-    get_by_month(month,city_dict)
+year = 2015
+for m in xrange(2):
+    month = m + 11
+    get_by_month(year,month,city_dict)
