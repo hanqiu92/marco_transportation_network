@@ -37,7 +37,7 @@ def get_by_date(date,city_dict):
         #in
         temp_in_record = get(city * 100 + 6,date,city_dict)
         if temp_in_record:
-            for i in xrange(10):
+            for i in xrange(len(temp_in_record)):
                 in_record[10 * n + i] = temp_in_record[i]
         else:
             for i in xrange(10):
