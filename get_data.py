@@ -35,8 +35,11 @@ def get_by_date(date,city_dict):
         #in
         temp_in_record = get(city * 100 + 6,date,city_dict)
         if temp_in_record:
-            for i in xrange(len(temp_in_record)):
-                in_record[10 * n + i] = temp_in_record[i]
+            for i in xrange(10):
+            	if i < len(temp_in_record):
+                	in_record[10 * n + i] = temp_in_record[i]
+                else:
+                	out_record[10 * n + i] = []
         else:
             for i in xrange(10):
                 in_record[10 * n + i] = []
@@ -44,8 +47,11 @@ def get_by_date(date,city_dict):
         temp_out_record = get(city * 100 + 16,date,city_dict)
         # update
         if temp_out_record:
-            for i in xrange(len(temp_out_record)):
-                out_record[10 * n + i] = temp_out_record[i]
+            for i in xrange(10):
+            	if i < len(temp_out_record):
+                	out_record[10 * n + i] = temp_out_record[i]
+                else:
+                	out_record[10 * n + i] = []
         else:
             for i in xrange(10):
                 out_record[10 * n + i] = []
