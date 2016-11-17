@@ -44,7 +44,7 @@ def get_by_date(date,city_dict):
         temp_out_record = get(city * 100 + 16,date,city_dict)
         # update
         if temp_out_record:
-            for i in xrange(10):
+            for i in xrange(len(temp_in_record)):
                 out_record[10 * n + i] = temp_out_record[i]
         else:
             for i in xrange(10):
@@ -73,7 +73,7 @@ def get_by_month(year,month,city_dict):
     pickle.dump( total_in_record, open( "in_"+str(month)+".p", "wb" ) )
     pickle.dump( total_out_record, open( "out_"+str(month)+".p", "wb" ) )
 
-year = 2015
-for m in xrange(2):
-    month = m + 11
+year = 2016
+for m in xrange(8):
+    month = m + 3
     get_by_month(year,month,city_dict)
