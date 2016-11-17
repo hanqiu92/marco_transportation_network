@@ -44,7 +44,7 @@ def get_by_date(date,city_dict):
         temp_out_record = get(city * 100 + 16,date,city_dict)
         # update
         if temp_out_record:
-            for i in xrange(len(temp_in_record)):
+            for i in xrange(len(temp_out_record)):
                 out_record[10 * n + i] = temp_out_record[i]
         else:
             for i in xrange(10):
