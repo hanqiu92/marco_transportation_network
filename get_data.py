@@ -9,8 +9,7 @@ city_num = len(city_dict)
 
 def get(city,date,city_dict):
     url='http://lbs.gtimg.com/maplbs/qianxi/'+str(date)+'/'+str(city)+'.js'
-    params={'callback':'JSONP_LOADER'}
-    res=requests.get(url,params)
+    res=requests.get(url)
     if res.status_code == 200:
         result = res.text[26:]
         result = literal_eval(result)
@@ -27,6 +26,8 @@ def get(city,date,city_dict):
     return []
 
 def get_by_date(date,city_dict):
+    t = time.time()
+
     in_record = [0] * len(city_dict) * 10
     out_record = [0] * len(city_dict) * 10
     n = 0
@@ -57,6 +58,11 @@ def get_by_date(date,city_dict):
                 out_record[10 * n + i] = []
         # count
         n += 1
+
+    pickle.dump( in_record, open( "in_"+str(date)+".p", "wb" ) )
+    pickle.dump( out_record, open( "out_"+str(date)+".p", "wb" ) )
+    print date,', time: ',time.time() - t
+
     return in_record,out_record
 
 def get_by_month(year,month,city_dict):
@@ -69,17 +75,18 @@ def get_by_month(year,month,city_dict):
     elif month == 2:
         days = 29
     for day in xrange(days):
-        t = time.time()
         date = year * 10000 + month * 100 + day + 1
         out = get_by_date(date,city_dict)
         total_in_record[date] = out[0]
         total_out_record[date] = out[1]
-        print date,', time: ',time.time() - t
+        pickle.dump( total_in_record, open( "in_"+str(date)+".p", "wb" ) )
+        pickle.dump( total_out_record, open( "out_"+str(date)+".p", "wb" ) )
 
     pickle.dump( total_in_record, open( "in_"+str(month)+".p", "wb" ) )
     pickle.dump( total_out_record, open( "out_"+str(month)+".p", "wb" ) )
 
 year = 2016
-for m in xrange(8):
-    month = m + 3
+for m in xrange(1):
+    month = m + 9
     get_by_month(year,month,city_dict)
+    #get_by_date(20160516 + m,city_dict)
