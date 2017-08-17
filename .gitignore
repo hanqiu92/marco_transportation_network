@@ -1,2 +1,4 @@
 history/
 *.tex
+.ipynb_checkpoints/
+*.log

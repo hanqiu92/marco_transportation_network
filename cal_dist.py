@@ -1,4 +1,4 @@
-from math import cos, sin, asin, sqrt
+from math import radians, cos, sin, asin, sqrt
 import numpy as np
 import pickle
 import json
@@ -10,8 +10,8 @@ lon = pickle.load(open( "lon.p", "rb" ))
 
 def distance(lat1, lon1, lat2, lon2):
     R = 6378.137
-    p = math.pi / 180.0
-    a = sin((lat2 - lat1) * p) ** 2 + cos(lat1 * p) * cos(lat2 * p) * sin((lon2 - lon1) * p) ** 2
+    lon1, lat1, lon2, lat2 = map(radians, [lon1, lat1, lon2, lat2])
+    a = sin((lat2 - lat1) / 2.0) ** 2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) / 2.0) ** 2
     return 2 * R * asin(sqrt(a))
 
 od_dist = {}
